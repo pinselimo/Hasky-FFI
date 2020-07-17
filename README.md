@@ -6,7 +6,7 @@ A wrapper for creating FFI modules out of Haskell source files. This project is 
 
 As the part of ```Hasky``` implemented in Haskell grew, it has been moved to its own repo. The relationship in between the both stays strongly connected.
 ```Hasky``` relies heavily on the types declared in ```Foreign.Hasky.Array```, ```Foreign.Hasky.List```, ```Foreign.Hasky.String``` and ```Foreign.Hasky.Tuples```.
-If you are looking for the Python equivalents, take a look at [```hasky.types.py```](https://github.com/pinselimo/Hasky/hasky/types.py)
+If you are looking for the Python equivalents, take a look at [```hasky.types.py```](https://github.com/pinselimo/Hasky/blob/master/hasky/types.py)
 
 ## License
 

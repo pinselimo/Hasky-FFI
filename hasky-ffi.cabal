@@ -1,0 +1,46 @@
+Name: hasky-ffi
+Version: 0.0.0.1
+Cabal-Version: >= 1.2
+License: LGPLv3
+License-file: COPYING
+Author: Simon Plakolb
+Homepage: https://github.com/pinselimo/hasky-ffi
+Synopsis: Haskell FFI wrapper.
+Description: Create FFI wrapped modules from Haskell source files!
+Maintainer: s.plakolb@gmail.com
+Copyright: (c) 2020 Simon Plakolb
+Category: Foreign
+Build-Type: Simple
+Extra-Source-Files: COPYING, COPYING.LESSER, README.md, ./src/Exports.hs
+
+Source-Repository   head
+    type:     git
+    location: https://github.com/pinselimo/hasky-ffi
+
+Library
+    Exposed-Modules:
+        Foreign.Hasky
+        Foreign.Hasky.Array
+        Foreign.Hasky.List
+        Foreign.Hasky.String
+        Foreign.Hasky.Tuples
+    Other-Modules:
+        Foreign.Hasky.AST
+        Foreign.Hasky.FFICreate
+        Foreign.Hasky.FFIType
+        Foreign.Hasky.Finalizer
+        Foreign.Hasky.HTypes
+        Foreign.Hasky.ParseExports
+        Foreign.Hasky.ParseTypes
+        Foreign.Hasky.ParseUtils
+        Foreign.Hasky.Utils
+        Foreign.Hasky.Wrapper
+    hs-source-dirs: src
+    Build-Depends:  base, c-structs>=0.0.0.1
+
+Executable          hasky-ffi
+    Main-is:        Main.hs
+    Default-Language: Haskell2010
+    Build-Depends:  base, hasky-ffi
+    hs-source-dirs: executables
+

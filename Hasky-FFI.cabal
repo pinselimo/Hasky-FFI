@@ -1,6 +1,6 @@
 Name: Hasky-FFI
 Version: 0.0.0.1
-Cabal-Version: >= 1.2
+Cabal-Version: >= 1.8
 License: LGPLv3
 License-file: COPYING
 Author: Simon Plakolb
@@ -36,11 +36,33 @@ Library
         Foreign.Hasky.Utils
         Foreign.Hasky.Wrapper
     hs-source-dirs: src
-    Build-Depends:  base, c-structs>=0.0.0.1
+    Build-Depends:  base, C-structs>=0.0.0.1
 
 Executable          hasky-ffi
     Main-is:        Main.hs
     Default-Language: Haskell2010
-    Build-Depends:  base, hasky-ffi
+    Build-Depends:  base, C-structs, Hasky-FFI
     hs-source-dirs: executables
+
+Test-Suite unit-tests
+    type: exitcode-stdio-1.0
+    main-is: Main.hs
+    hs-source-dirs: test
+    build-depends:
+        base                        ,
+        C-structs                   ,
+        HUnit                       ,
+        QuickCheck                  ,
+        test-framework              ,
+        test-framework-hunit        ,
+        test-framework-quickcheck2
+
+Test-Suite doctest
+  type: exitcode-stdio-1.0
+  main-is: DocTest.hs
+  hs-source-dirs: test
+  build-depends:
+    base                        ,
+    doctest                     ,
+    Glob
 

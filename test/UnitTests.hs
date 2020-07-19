@@ -7,17 +7,16 @@ import Test.Framework.Providers.HUnit (testCase)
 import Test.HUnit ((@?=))
 
 import Text.Parsec (parse, ParseError(..))
-import Data.Either (isLeft, isRight)
 
 import Foreign.Hasky.HTypes
-import Foreign.Hasky.ParseTypes (parseIfTypeDef, TypeDef(..))
+import Foreign.Hasky.ParseTypes (parseIfTypeDef, TypeDef(..), parseTypeDefs)
 import Foreign.Hasky.ParseExports (parseExports, parseModname)
 
 tests = testGroup "UnitTests" [
       parseSimple
     , parseIO
     , parseNested
---    , parseUnsupported
+-- TODO: probably only suited for golden tests   , parseUnsupported
 -- TODO:    , testExports
 -- TODO:    , testModname
     ]
@@ -84,5 +83,5 @@ parseNested = testGroup "Parse Nested Types" $
     zipWith (\str res -> testCase str $ parseTest str @?= res) nested nestedRes
 
 parseUnsupported = testGroup "Parse Unsupported Types" $
-    map (\str -> testCase str $ (isLeft $ parseTest str) @?= True) unsupported
+    map (\str -> testCase str $ (parse parseTypeDefs "" str) @?= Right []) unsupported
 

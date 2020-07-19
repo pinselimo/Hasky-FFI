@@ -1,4 +1,4 @@
-module Properties where
+module TypeProperties where
 
 import Test.QuickCheck (Property, Arbitrary, arbitrary)
 import Test.QuickCheck.Monadic (monadicIO, run, assert)

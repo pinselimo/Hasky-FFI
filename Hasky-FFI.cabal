@@ -1,7 +1,7 @@
 Name: Hasky-FFI
 Version: 0.0.0.1
-Cabal-Version: >= 1.8
-License: LGPLv3
+Cabal-Version: >= 1.10
+License: LGPL-3
 License-file: COPYING
 Author: Simon Plakolb
 Homepage: https://github.com/pinselimo/hasky-ffi

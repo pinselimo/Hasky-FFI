@@ -1,4 +1,4 @@
-module Foreign.Hasky.ParseTypes (parseTypeDefs, parseIfTypeDef, TypeDef(funcN, funcT)) where
+module Foreign.Hasky.ParseTypes (parseTypeDefs, parseIfTypeDef, TypeDef(..)) where
 
 import Text.Parsec
 import Text.Parsec.String (Parser)

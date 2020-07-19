@@ -1,9 +1,8 @@
 module TypeProperties where
 
-import Test.QuickCheck (Property, Arbitrary, arbitrary)
+import Test.Tasty.QuickCheck (Property, Arbitrary, arbitrary, testProperty)
+import Test.Tasty (testGroup)
 import Test.QuickCheck.Monadic (monadicIO, run, assert)
-import Test.Framework.Providers.API (testGroup)
-import Test.Framework.Providers.QuickCheck2 (testProperty)
 
 import Foreign.C.Types (CChar, CInt, CDouble, CLLong)
 import Foreign.Storable (Storable)

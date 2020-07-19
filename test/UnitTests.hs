@@ -4,24 +4,25 @@ module UnitTests (
 
 import Test.Framework.Providers.API (testGroup)
 import Test.Framework.Providers.HUnit (testCase)
-import Test.HUnit ((@=?))
+import Test.HUnit ((@?=))
 
-import Text.Parsec (parse)
+import Text.Parsec (parse, ParseError(..))
+import Data.Either (isLeft, isRight)
 
 import Foreign.Hasky.HTypes
-import Foreign.Hasky.ParseTypes (parseIfTypeDef)
+import Foreign.Hasky.ParseTypes (parseIfTypeDef, TypeDef(..))
 import Foreign.Hasky.ParseExports (parseExports, parseModname)
 
 tests = testGroup "UnitTests" [
       parseSimple
     , parseIO
     , parseNested
-    , parseUnsupported
+--    , parseUnsupported
 -- TODO:    , testExports
 -- TODO:    , testModname
     ]
 
-parseTest = parse parseIfTypeDef "Test" s
+parseTest = parse parseIfTypeDef "Test"
 stdTD = TypeDef "f"
 
 simple = [
@@ -56,21 +57,21 @@ nested = [
       "f :: Int -> [Int] -> Int"
     , "f :: [[Integer]] -> (Double, String)"
     , "f :: Char -> [(Float, Word32)]"
-    , "f :: Bool -> [String] -> ([CInt]->[Int8])"
+    , "f :: Bool -> [String] -> ([CInt], [Int8])"
     ]
 
 nestedRes = map Right [
       stdTD [HInt, HList HInt, HInt]
     , stdTD [HList (HList HInteger), HTuple [HDouble, HString]]
-    , stdTD [HChar, HList (HTuple [HFloat, HUInt])]
+    , stdTD [HChar, HList (HTuple [HFloat, HCUInt])]
     , stdTD [HBool, HList HString, HTuple [HList HCInt, HList HCChar]]
     ]
 
 unsupported = [
       "f :: CustomType -> [Int] -> Int"
-    , "f = (1+)"
-    , "f :: Char -> Maybe String"
-    , "f :: Bool -> Either Foo Bar"
+--    , "f = (1+)"
+--    , "f :: Char -> Maybe String"
+--    , "f :: Bool -> Either Foo Bar"
     ]
 
 parseSimple = testGroup "Parse Simple Types" $
@@ -83,5 +84,5 @@ parseNested = testGroup "Parse Nested Types" $
     zipWith (\str res -> testCase str $ parseTest str @?= res) nested nestedRes
 
 parseUnsupported = testGroup "Parse Unsupported Types" $
-    map (\str -> testCase str $ parseTest str @?= Left (ParseError "Test")) unsupported
+    map (\str -> testCase str $ (isLeft $ parseTest str) @?= True) unsupported
 

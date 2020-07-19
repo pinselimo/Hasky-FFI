@@ -21,6 +21,10 @@ import Foreign.Hasky.ParseTypes (parseTypeDefs, TypeDef(funcN))
 import Foreign.Hasky.ParseExports (parseExports, parseModname)
 import Foreign.Hasky.FFICreate (createFFI)
 
+newtype HaskyException = ParseException ParseError
+                         deriving (Show)
+instance Exception HaskyException
+
 {- |
     Parses a Haskell source file at @fp@ and creates a new module for which it will return the @FilePath@.
     The new file will be located in the same diretory and contain @foreign export ccall@s for all those functions, where wrapping is possible.

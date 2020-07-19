@@ -35,8 +35,8 @@ peekArray ap = do
     let l = s2fst array
     let a = s2snd array
     if a == nullPtr
-    then return []
-    else ARR.peekArray (fromIntegral l) a
+      then return []
+      else ARR.peekArray (fromIntegral l) a
 
 -- | Frees all memory allocated for a @CArray@ by @newArray@.
 freeArray :: (Storable a) => CArray a -> IO ()

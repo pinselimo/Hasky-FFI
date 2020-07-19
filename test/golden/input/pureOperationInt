@@ -1,0 +1,3 @@
+pureOperationInt :: Int -> Int
+pureOperationInt i = i * i
+

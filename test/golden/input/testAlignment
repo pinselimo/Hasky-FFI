@@ -1,0 +1,3 @@
+testAlignment :: [(Double, CInt, CChar)]
+testAlignment = take 10 $ repeat (0.1, 63, castCharToCChar 'a')
+

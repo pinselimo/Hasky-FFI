@@ -1,0 +1,3 @@
+noiseFunc :: [a] -> IO a
+noiseFunc = undefined
+

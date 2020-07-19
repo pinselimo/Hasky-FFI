@@ -1,0 +1,3 @@
+pureOperationStrings :: String -> String
+pureOperationStrings = filter (/= 'a')
+

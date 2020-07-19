@@ -1,0 +1,4 @@
+newtype NoiseNewType = NNT {
+    fromNoise :: String
+    } deriving (Show, Eq)
+

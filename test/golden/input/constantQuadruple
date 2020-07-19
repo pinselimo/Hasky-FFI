@@ -1,0 +1,3 @@
+constantQuadruple :: (Int, Double, CChar, CChar)
+constantQuadruple = (63, 0.1, 63, castCharToCChar 'a')
+

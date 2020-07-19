@@ -1,0 +1,3 @@
+hello :: IO ()
+hello = putStrLn "Hello from Haskell!"
+

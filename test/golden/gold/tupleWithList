@@ -1,0 +1,5 @@
+tupleWithList a =  ( (return (Test.tupleWithList (fromIntegral a))) >>=
+     (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) ( (mapM (newCWString) a) >>=
+     (\ a ->  (newArray a))) ( (return (map (fromIntegral) b)) >>=
+     (\ b ->  (newArray b))))) res) >>=
+     (\ res ->  (newTuple2 res)))))

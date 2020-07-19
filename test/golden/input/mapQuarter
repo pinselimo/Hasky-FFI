@@ -1,0 +1,3 @@
+mapQuarter :: [Integer] -> [Double]
+mapQuarter = map ((*0.25) . fromIntegral)
+

@@ -1,0 +1,4 @@
+data NoiseSumType = Foo
+                  | Bar
+                  deriving (Eq, Show)
+

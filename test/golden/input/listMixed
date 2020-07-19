@@ -1,0 +1,3 @@
+listMixed :: [Integer] -> [Double]
+listMixed = map ((*0.25) . fromIntegral)
+

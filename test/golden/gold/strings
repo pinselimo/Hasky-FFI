@@ -1,0 +1,3 @@
+strings a =  ( ( (peekCWString a) >>=
+     (\ a ->  (return (Test.strings a)))) >>=
+     (\ res ->  (newCWString res)))

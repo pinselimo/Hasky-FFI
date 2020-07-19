@@ -1,0 +1,3 @@
+haskyLen :: [Integer] -> Int
+haskyLen = length
+

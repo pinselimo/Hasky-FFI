@@ -1,0 +1,3 @@
+listOfTuplesWithList :: [String] -> [[([[String]], [Integer])]]
+listOfTuplesWithList xs = [[(take 63 $ repeat xs, [63])]]
+

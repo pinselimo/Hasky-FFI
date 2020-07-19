@@ -1,0 +1,4 @@
+listNested :: [[[String]]] -> [[[String]]]
+listNested ((s:_):_) = [[[head s]]]
+listNested [] = [[[""]]]
+

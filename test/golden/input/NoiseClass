@@ -1,0 +1,3 @@
+class NoiseClass a where
+    noise :: a -> String
+

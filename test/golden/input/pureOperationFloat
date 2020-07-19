@@ -1,0 +1,3 @@
+pureOperationFloat :: Float -> Float -> Float
+pureOperationFloat a b = a ** b
+

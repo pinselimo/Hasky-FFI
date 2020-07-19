@@ -1,0 +1,3 @@
+sideEffects :: IO ()
+sideEffects = putStrLn constantString
+

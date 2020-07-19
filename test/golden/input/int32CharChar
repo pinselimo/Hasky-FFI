@@ -1,0 +1,3 @@
+int32CharChar :: (CInt,CChar,CChar)
+int32CharChar = (63,1,1)
+

@@ -1,0 +1,2 @@
+someConstant :: Int
+someConstant = 63

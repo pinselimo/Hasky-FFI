@@ -1,0 +1,3 @@
+tupleWithListOfTuples :: String -> String -> ([(String, String)],[Int])
+tupleWithListOfTuples a b = (take 63 $ repeat (a,b), [63])
+

@@ -1,0 +1,3 @@
+listOfInteger :: [Integer] -> Int
+listOfInteger = length
+

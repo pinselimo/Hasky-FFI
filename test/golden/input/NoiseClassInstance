@@ -1,0 +1,3 @@
+instance NoiseClass (NoiseRecord a b) where
+    noise _ = "MoreNoise"
+

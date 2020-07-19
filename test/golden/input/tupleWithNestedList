@@ -1,0 +1,3 @@
+tupleWithNestedList :: Integer -> String -> ([[String]],[[Integer]])
+tupleWithNestedList i s = ([take (fromIntegral i) $ repeat s], [[i]])
+

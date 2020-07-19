@@ -1,0 +1,3 @@
+inputSideEffects :: String -> IO ()
+inputSideEffects = putStrLn
+

@@ -1,0 +1,4 @@
+listOfInteger a =  ( ( ( (peekArray a) >>=
+     (\ a ->  (mapM (\ a ->  (return (fromIntegral a))) a))) >>=
+     (\ a ->  (return (Test.listOfInteger a)))) >>=
+     (\ res ->  (return (fromIntegral res))))

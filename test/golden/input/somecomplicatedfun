@@ -1,0 +1,3 @@
+someComplicatedFunc :: [a] -> IO a
+someComplicatedFunc = undefined
+

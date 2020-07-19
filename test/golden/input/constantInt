@@ -1,0 +1,3 @@
+constantInt :: Int
+constantInt = 63
+

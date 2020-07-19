@@ -1,0 +1,3 @@
+listOfTuplesNested :: String -> Integer -> [[(Integer, String)]]
+listOfTuplesNested a b = [[(b,a)]]
+

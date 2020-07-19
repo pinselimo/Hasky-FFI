@@ -1,0 +1,2 @@
+inputSideEffects a =  ( (peekCWString a) >>=
+     (\ a ->  (Test.inputSideEffects a)))

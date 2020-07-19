@@ -1,0 +1,3 @@
+constantTriple =  ( (return (Test.constantTriple)) >>=
+     (\ res ->  ( ( (\ ( a,  b,  c) ->  (return ((,,) (fromIntegral a) (CDouble b) (CFloat c)))) res) >>=
+     (\ res ->  (newTuple3 res)))))

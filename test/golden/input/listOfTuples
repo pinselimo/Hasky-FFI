@@ -1,0 +1,3 @@
+listOfTuples :: String -> CInt-> [(String, CInt)]
+listOfTuples a b = [(a,b)]
+

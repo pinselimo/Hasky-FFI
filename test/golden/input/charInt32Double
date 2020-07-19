@@ -1,0 +1,3 @@
+charInt32Double :: (CChar, CInt, Double)
+charInt32Double = (castCharToCChar 'a', 63,0.63)
+

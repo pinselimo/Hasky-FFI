@@ -1,0 +1,3 @@
+tuple =  ( (return (Test.tuple)) >>=
+     (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (return a) (newCWString b))) res) >>=
+     (\ res ->  (newTuple2 res)))))

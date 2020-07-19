@@ -1,0 +1,3 @@
+pureOperationMixed :: Int -> Double -> Double
+pureOperationMixed x y = (fromIntegral x) * (sin y)
+

@@ -1,0 +1,3 @@
+multisin :: Int -> Double -> Double
+multisin x y = (fromIntegral x) * (sin y)
+

@@ -1,0 +1,3 @@
+tupleWithList :: Int -> ([String], [Int])
+tupleWithList l = (take l $ repeat "Haskell", take l $ repeat 63)
+

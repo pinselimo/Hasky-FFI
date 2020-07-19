@@ -1,0 +1,3 @@
+constantTriple :: (Int, Double, Float)
+constantTriple = (63, 0.63, 0.63)
+

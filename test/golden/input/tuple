@@ -1,0 +1,3 @@
+tuple :: (CInt, String)
+tuple = (1 :: CInt, "a")
+

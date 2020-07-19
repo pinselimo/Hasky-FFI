@@ -36,7 +36,9 @@ Library
         Foreign.Hasky.Utils
         Foreign.Hasky.Wrapper
     hs-source-dirs: src
-    Build-Depends:  base, C-structs>=0.0.0.1
+    Build-Depends:  base        >= 4.0 && < 5.0,
+                    C-structs   >= 0.1 && < 0.2,
+                    parsec      >= 3.0 && < 3.2
 
 Executable          hasky-ffi
     Main-is:        Main.hs

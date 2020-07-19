@@ -9,6 +9,7 @@ data HType
    | HBool
    | HCBool
    | HChar
+   | HCChar
    | HWChar
    | HSChar
    | HUChar
@@ -40,7 +41,7 @@ data HType
    deriving (Show, Eq)
 
 htype = foldr (<|>) (unexpected "invalid type") types
- where types = [char, schar, uchar, short, ushort
+ where types = [char, cchar, schar, uchar, short, ushort
                , int32, uint32, long, ulong, float
                , double, bool, integer, int, cwstring
                , cfloat, cdouble, string]
@@ -51,7 +52,8 @@ makeParser t ss = foldr ((<|>) . try . PC.string) (unexpected "invalid type") ss
 
 mp = makeParser
 bool = mp HBool ["Bool"]
-char = mp HChar ["CChar","Int8"]
+char = mp HChar ["Char"]
+cchar = mp HCChar ["CChar","Int8"]
 schar = mp HSChar ["CSChar","Int8"]
 uchar = mp HUChar ["CUChar", "Word8"]
 short = mp HShort ["CShort", "Int16"]

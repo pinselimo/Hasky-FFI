@@ -24,7 +24,7 @@ test_idArray = testGroup "Identity Array" [
 
 identityArray list = do
     ptr_array <- newArray list
-    list'     <- peek ptr_array
+    list'     <- peekArray ptr_array
     freeArray ptr_array
     return list'
 

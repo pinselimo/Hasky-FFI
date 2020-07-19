@@ -19,7 +19,7 @@ import Foreign.C.Structs (Struct2(..))
 -- | Type synonym for a pointer to a struct with a field of type @a@ and a pointer to another such struct. The final element contains a null pointer in the second field.
 type CList a = Ptr (CListElem a)
 
-newtype Storable a => CListElem a = CLE {
+newtype CListElem a = CLE {
     getElem :: Struct2 a (Ptr (CListElem a))
     } deriving (Show, Eq)
 
@@ -39,23 +39,22 @@ newList (x:xs) = newList xs >>= new . CLE . Struct2 x
 
 -- | (Re-)Creates a Haskell list out of a @CList@. Memory is not freed within this function. If it had been allocated within Haskell it needs to be freed with @freeList@.
 peekList :: (Storable a) => CList a -> IO [a]
-peekList lp = do
-    le <- peek lp
-    let x = s2fst $ getElem le
-    let n = s2snd $ getElem le
-    if n == nullPtr
-      then return [x]
-      else do
-        li <- peekList n
-        return (x:li)
+peekList lp
+    | lp == nullPtr = return []
+    | otherwise     = do
+                le <- peek lp
+                let x = s2fst $ getElem le
+                let n = s2snd $ getElem le
+                li <- peekList n
+                return (x:li)
 
 -- | Frees all memory allocated for a @CList@ by @newList@.
 freeList :: (Storable a) => CList a -> IO ()
-freeList lp = do
-    le <- peek lp
-    let n = s2snd $ getElem le
-    free lp
-    if n == nullPtr
-      then return ()
-      else freeList n
+freeList lp
+    | lp == nullPtr = free lp
+    | otherwise     = do
+          le <- peek lp
+          let n = s2snd $ getElem le
+          free lp
+          freeList n
 

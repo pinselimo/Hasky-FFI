@@ -6,7 +6,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Golden (goldenVsFile)
 
 import System.FilePath.Glob (glob)
-import System.FilePath.Posix (takeBaseName, joinPath)
+import System.FilePath.Posix (takeBaseName, takeFileName, joinPath)
 import Text.Parsec (parse)
 
 import Foreign.Hasky.ParseTypes (parseTypeDef, TypeDef(funcN, funcT))
@@ -20,7 +20,7 @@ findSingular :: IO [FilePath]
 findSingular = glob "test/golden/input/*.golden"
 
 outp :: FilePath -> FilePath
-outp fp = joinPath ["test/golden/gold", takeBaseName fp, ".golden"]
+outp fp = joinPath ["test/golden/gold", takeFileName fp]
 
 testSingular :: FilePath -> TestTree
 testSingular fp = goldenVsFile
@@ -28,7 +28,7 @@ testSingular fp = goldenVsFile
             (xmpl fp)      -- Correct output
             (outp fp)      -- File written to by test
             (write_singular_golden fp)
-    where xmpl fp = joinPath ["test/golden/output", takeBaseName fp, ".golden"]
+    where xmpl fp = joinPath ["test/golden/output", takeFileName fp]
 
 write_singular_golden :: FilePath -> IO ()
 write_singular_golden fp = do

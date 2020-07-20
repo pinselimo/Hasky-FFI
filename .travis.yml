@@ -92,7 +92,6 @@ install:
   - cat $CABALHOME/config
   - rm -fv cabal.project cabal.project.local cabal.project.freeze
   - travis_retry ${CABAL} v2-update -v
-  - ${CABAL} v2-install $WITHCOMPILER https://hackage.haskell.org/package/C-structs-0.1.0.1/candidate/C-structs-0.1.0.1.tar.gz
   # Generate cabal.project
   - rm -rf cabal.project cabal.project.local cabal.project.freeze
   - touch cabal.project

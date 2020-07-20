@@ -30,7 +30,8 @@ ffiType :: HType -> String
 ffiType ht = case ht of
     HUnit   -> "()"
     HCBool  -> "CBool"
-    HChar   -> "CChar"
+    HChar   -> "Char"
+    HCChar  -> "CChar"
     HWChar  -> "HWchar"
     HSChar  -> "CSChar"
     HUChar  -> "CUChar"

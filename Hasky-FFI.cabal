@@ -11,7 +11,13 @@ Maintainer: s.plakolb@gmail.com
 Copyright: (c) 2020 Simon Plakolb
 Category: Foreign
 Build-Type: Simple
-Extra-Source-Files: COPYING, COPYING.LESSER, README.md, ./src/Exports.hs
+Extra-Source-Files:
+    COPYING,
+    COPYING.LESSER,
+    README.md,
+    ./src/Exports.hs,
+    test/golden/input/* ,
+    test/golden/output/*
 Tested-With: GHC ==8.6.5 || ==8.8.3 || ==8.4.4 || ==8.2.2 || ==8.0.2
 
 Source-Repository   head
@@ -19,6 +25,7 @@ Source-Repository   head
     location: https://github.com/pinselimo/hasky-ffi
 
 Library
+    Default-Language: Haskell2010
     Exposed-Modules:
         Foreign.Hasky
         Foreign.Hasky.Array
@@ -42,12 +49,13 @@ Library
                     parsec      >= 3.0 && < 3.2
 
 Executable          hasky-ffi
-    Main-is:        Main.hs
     Default-Language: Haskell2010
+    Main-is:        Main.hs
     Build-Depends:  base, C-structs, Hasky-FFI
     hs-source-dirs: executables
 
 Test-Suite unit-tests
+    Default-Language: Haskell2010
     type: exitcode-stdio-1.0
     main-is: Main.hs
     Other-Modules:
@@ -55,9 +63,6 @@ Test-Suite unit-tests
         TypeProperties,
         WrapGoldenTests
     hs-source-dirs: test, src
-    Extra-Source-Files:
-        test/golden/input/* ,
-        test/golden/output/*
     build-depends:
         base         >= 4.0 && < 5.0,
         C-structs    >= 0.1 && < 0.2,
@@ -72,11 +77,12 @@ Test-Suite unit-tests
         tasty-quickcheck >= 0.10 && < 0.11
 
 Test-Suite doctest
-  type: exitcode-stdio-1.0
-  main-is: DocTest.hs
-  hs-source-dirs: test
-  build-depends:
-    base        >= 4.0 && < 5.0,
-    doctest     >= 0.10 && < 0.18,
-    Glob        >= 0.8 && < 0.11
+    Default-Language: Haskell2010
+    type: exitcode-stdio-1.0
+    main-is: DocTest.hs
+    hs-source-dirs: test
+    build-depends:
+        base        >= 4.0 && < 5.0,
+        doctest     >= 0.10 && < 0.18,
+        Glob        >= 0.8 && < 0.11
 

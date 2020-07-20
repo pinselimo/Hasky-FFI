@@ -66,6 +66,7 @@ before_install:
   - BENCH=--enable-benchmarks
   - HEADHACKAGE=false
   - rm -f $CABALHOME/config
+  - git clone https://github.com/pinselimo/cstructs-in-haskell ./cstructs
   - |
     echo "verbose: normal +nowrap +markoutput"          >> $CABALHOME/config
     echo "remote-build-reporting: anonymous"            >> $CABALHOME/config
@@ -96,7 +97,7 @@ install:
   - rm -rf cabal.project cabal.project.local cabal.project.freeze
   - touch cabal.project
   - |
-    echo "packages: ." >> cabal.project
+    echo "packages: ./cstructs" >> cabal.project.local
   - if [ $HCNUMVER -ge 80200 ] ; then echo 'package Hasky-FFI' >> cabal.project ; fi
   - "if [ $HCNUMVER -ge 80200 ] ; then echo '  ghc-options: -Werror=missing-methods' >> cabal.project ; fi"
   - |

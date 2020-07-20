@@ -50,7 +50,14 @@ Executable          hasky-ffi
 Test-Suite unit-tests
     type: exitcode-stdio-1.0
     main-is: Main.hs
+    Other-Modules:
+        ParseUnitTests,
+        TypeProperties,
+        WrapGoldenTests
     hs-source-dirs: test, src
+    Extra-Source-Files:
+        test/golden/input/* ,
+        test/golden/output/*
     build-depends:
         base         >= 4.0 && < 5.0,
         C-structs    >= 0.1 && < 0.2,

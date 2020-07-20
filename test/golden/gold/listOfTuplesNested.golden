@@ -1,6 +1,0 @@
-listOfTuplesNested a b =  ( ( (peekCWString a) >>=
-     (\ a ->  (return (Test.listOfTuplesNested a (fromIntegral b))))) >>=
-     (\ res ->  ( (mapM (\ res ->  ( (mapM (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (return (fromIntegral a)) (newCWString b))) res) >>=
-     (\ res ->  (newTuple2 res)))) res) >>=
-     (\ res ->  (newArray res)))) res) >>=
-     (\ res ->  (newArray res)))))

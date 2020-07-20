@@ -1,5 +1,0 @@
-listOfTuples a b =  ( ( (peekCWString a) >>=
-     (\ a ->  (return (Test.listOfTuples a b)))) >>=
-     (\ res ->  ( (mapM (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (newCWString a) (return b))) res) >>=
-     (\ res ->  (newTuple2 res)))) res) >>=
-     (\ res ->  (newArray res)))))

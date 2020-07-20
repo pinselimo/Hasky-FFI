@@ -1,1 +1,0 @@
-multisin a b =  (CDouble (Test.multisin (fromIntegral a) (realToFrac b)))

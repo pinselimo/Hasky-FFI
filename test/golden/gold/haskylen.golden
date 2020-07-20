@@ -1,4 +1,0 @@
-haskyLen a =  ( ( ( (peekArray a) >>=
-     (\ a ->  (mapM (\ a ->  (return (fromIntegral a))) a))) >>=
-     (\ a ->  (return (Test.haskyLen a)))) >>=
-     (\ res ->  (return (fromIntegral res))))

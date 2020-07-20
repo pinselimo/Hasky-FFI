@@ -1,3 +1,0 @@
-constantTuple =  ( (return (Test.constantTuple)) >>=
-     (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (return (CDouble a)) (newCWString b))) res) >>=
-     (\ res ->  (newTuple2 res)))))

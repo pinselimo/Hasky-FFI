@@ -1,2 +1,0 @@
-constantString =  ( (return (Test.constantString)) >>=
-     (\ res ->  (newCWString res)))

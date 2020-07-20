@@ -1,7 +1,0 @@
-nested a =  ( ( ( (peekArray a) >>=
-     (\ a ->  (mapM (\ a ->  ( (peekArray a) >>=
-     (\ a ->  (mapM (peekCWString) a)))) a))) >>=
-     (\ a ->  (return (Test.nested a)))) >>=
-     (\ res ->  ( (mapM (\ res ->  ( (mapM (newCWString) res) >>=
-     (\ res ->  (newArray res)))) res) >>=
-     (\ res ->  (newArray res)))))

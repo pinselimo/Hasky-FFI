@@ -1,3 +1,0 @@
-doubleInt32Char =  ( (return (Test.doubleInt32Char)) >>=
-     (\ res ->  ( ( (\ ( a,  b,  c) ->  (return ((,,) (CDouble a) b c))) res) >>=
-     (\ res ->  (newTuple3 res)))))

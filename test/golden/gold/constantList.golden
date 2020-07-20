@@ -1,3 +1,0 @@
-constantList =  ( (return (Test.constantList)) >>=
-     (\ res ->  ( (return (map (fromIntegral) res)) >>=
-     (\ res ->  (newArray res)))))

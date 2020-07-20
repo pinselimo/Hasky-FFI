@@ -1,1 +1,0 @@
-constantInt =  (fromIntegral (Test.constantInt))

@@ -1,4 +1,0 @@
-testAlignment =  ( (return (Test.testAlignment)) >>=
-     (\ res ->  ( (mapM (\ res ->  ( ( (\ ( a,  b,  c) ->  (return ((,,) (CDouble a) b c))) res) >>=
-     (\ res ->  (newTuple3 res)))) res) >>=
-     (\ res ->  (newArray res)))))

@@ -1,3 +1,0 @@
-constantQuadruple =  ( (return (Test.constantQuadruple)) >>=
-     (\ res ->  ( ( (\ ( a,  b,  c,  d) ->  (return ((,,,) (fromIntegral a) (CDouble b) c d))) res) >>=
-     (\ res ->  (newTuple4 res)))))

@@ -1,5 +1,0 @@
-mapQuarter a =  ( ( ( (peekArray a) >>=
-     (\ a ->  (mapM (\ a ->  (return (fromIntegral a))) a))) >>=
-     (\ a ->  (return (Test.mapQuarter a)))) >>=
-     (\ res ->  ( (return (map (CDouble) res)) >>=
-     (\ res ->  (newArray res)))))

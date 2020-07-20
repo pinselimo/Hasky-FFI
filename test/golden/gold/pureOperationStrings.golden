@@ -1,3 +1,0 @@
-pureOperationStrings a =  ( ( (peekCWString a) >>=
-     (\ a ->  (return (Test.pureOperationStrings a)))) >>=
-     (\ res ->  (newCWString res)))

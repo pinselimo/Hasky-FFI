@@ -1,3 +1,0 @@
-int32CharChar =  ( (return (Test.int32CharChar)) >>=
-     (\ res ->  ( ( (\ ( a,  b,  c) ->  (return ((,,) a b c))) res) >>=
-     (\ res ->  (newTuple3 res)))))

@@ -20,7 +20,7 @@ findSingular :: IO [FilePath]
 findSingular = glob "test/golden/input/*.golden"
 
 outp :: FilePath -> FilePath
-outp fp = joinPath ["test/golden/gold", takeBaseName fp]
+outp fp = joinPath ["test/golden/gold", takeBaseName fp, ".golden"]
 
 testSingular :: FilePath -> TestTree
 testSingular fp = goldenVsFile
@@ -28,7 +28,7 @@ testSingular fp = goldenVsFile
             (xmpl fp)      -- Correct output
             (outp fp)      -- File written to by test
             (write_singular_golden fp)
-    where xmpl fp = joinPath ["test/golden/output", takeBaseName fp]
+    where xmpl fp = joinPath ["test/golden/output", takeBaseName fp, ".golden"]
 
 write_singular_golden :: FilePath -> IO ()
 write_singular_golden fp = do

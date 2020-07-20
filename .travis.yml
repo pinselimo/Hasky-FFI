@@ -102,6 +102,7 @@ install:
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(Hasky-FFI)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
+  - ${CABAL} v2-install https://hackage.haskell.org/package/C-structs-0.1.0.1/candidate/C-structs-0.1.0.1.tar.gz
   - if [ -f "./configure.ac" ]; then (cd "." && autoreconf -i); fi
   - ${CABAL} v2-freeze $WITHCOMPILER ${TEST} ${BENCH}
   - "cat cabal.project.freeze | sed -E 's/^(constraints: *| *)//' | sed 's/any.//'"
@@ -129,7 +130,6 @@ script:
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(Hasky-FFI)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
-  - ${CABAL} v2-install https://hackage.haskell.org/package/C-structs-0.1.0.1/candidate/C-structs-0.1.0.1.tar.gz
   # Building...
   # this builds all libraries and executables (without tests/benchmarks)
   - ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks all

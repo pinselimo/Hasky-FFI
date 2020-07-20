@@ -17,10 +17,7 @@ tests = do
     return $ (testGroup "Singular Golden") $ map testSingular gold
 
 findSingular :: IO [FilePath]
-findSingular = do
-    allfiles <- glob "test/golden/input/*"
-    largefiles <- glob "test/golden/input/*.hs"
-    return $ filter (\x -> not $ elem x largefiles) allfiles
+findSingular = glob "test/golden/input/*.golden"
 
 outp :: FilePath -> FilePath
 outp fp = joinPath ["test/golden/gold", takeBaseName fp]

@@ -56,7 +56,6 @@ Test-Suite unit-tests
     main-is: Main.hs
     Other-Modules:
         ParseUnitTests,
-        TypeProperties,
         WrapGoldenTests
     hs-source-dirs: test, src
     build-depends:

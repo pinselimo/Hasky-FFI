@@ -1,0 +1,3 @@
+haskellList =  ( (return (Test.haskellList)) >>=
+     (\ res ->  ( (return (map (fromIntegral) res)) >>=
+     (\ res ->  (newArray res)))))

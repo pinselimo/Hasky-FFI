@@ -1,0 +1,8 @@
+tupleWithNestedList a b =  ( ( (peekCWString b) >>=
+     (\ b ->  (return (Test.tupleWithNestedList (fromIntegral a) b)))) >>=
+     (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) ( (mapM (\ a ->  ( (mapM (newCWString) a) >>=
+     (\ a ->  (newArray a)))) a) >>=
+     (\ a ->  (newArray a))) ( (mapM (\ b ->  ( (return (map (fromIntegral) b)) >>=
+     (\ b ->  (newArray b)))) b) >>=
+     (\ b ->  (newArray b))))) res) >>=
+     (\ res ->  (newTuple2 res)))))

@@ -1,0 +1,82 @@
+Name: Pythas-FFI
+Version: 0.0.0.1
+Cabal-Version: >= 1.10
+License: LGPL-3
+License-file: COPYING
+Author: Simon Plakolb
+Homepage: https://github.com/pinselimo/Pythas-FFI
+Synopsis: Haskell FFI wrapper.
+Description: Create FFI wrapped modules from Haskell source files!
+Maintainer: s.plakolb@gmail.com
+Copyright: (c) 2020 Simon Plakolb
+Category: Foreign
+Build-Type: Simple
+Extra-Source-Files:
+    COPYING,
+    COPYING.LESSER,
+    README.md,
+    ./src/Exports.hs,
+    test/golden/input/*.golden,
+    test/golden/output/*.golden,
+    test/golden/gold/README.md
+Tested-With: GHC ==8.6.5 || ==8.8.3 || ==8.4.4 || ==8.2.2 || ==8.0.2
+
+Source-Repository   head
+    type:     git
+    location: https://github.com/pinselimo/Pythas-FFI
+
+Library
+    Default-Language: Haskell2010
+    Exposed-Modules:
+        Foreign.Pythas
+    Other-Modules:
+        Foreign.Pythas.AST
+        Foreign.Pythas.FFICreate
+        Foreign.Pythas.FFIType
+        Foreign.Pythas.Finalizer
+        Foreign.Pythas.HTypes
+        Foreign.Pythas.ParseExports
+        Foreign.Pythas.ParseTypes
+        Foreign.Pythas.ParseUtils
+        Foreign.Pythas.Utils
+        Foreign.Pythas.Wrapper
+    hs-source-dirs: src
+    Build-Depends:  base        >= 4.0 && < 5.0,
+                    parsec      >= 3.0 && < 3.2
+
+Executable          hasky-ffi
+    Default-Language: Haskell2010
+    Main-is:        Main.hs
+    Build-Depends:  base, Pythas-FFI
+    hs-source-dirs: executables
+
+Test-Suite unit-tests
+    Default-Language: Haskell2010
+    type: exitcode-stdio-1.0
+    main-is: Main.hs
+    Other-Modules:
+        ParseUnitTests,
+        WrapGoldenTests
+    hs-source-dirs: test, src
+    build-depends:
+        base         >= 4.0 && < 5.0,
+        parsec       >= 3.0 && < 3.2,
+        HUnit        >= 1.2 && < 1.7,
+        QuickCheck   >= 2.7 && < 2.15,
+        Glob         >= 0.8 && < 0.11,
+        filepath     >= 1.4 && < 1.5,
+        tasty        >= 1.0 && < 1.4,
+        tasty-hunit  >= 0.10 && < 0.11,
+        tasty-golden >= 2.3.2 && < 2.4.0,
+        tasty-quickcheck >= 0.10 && < 0.11
+
+Test-Suite doctest
+    Default-Language: Haskell2010
+    type: exitcode-stdio-1.0
+    main-is: DocTest.hs
+    hs-source-dirs: test
+    build-depends:
+        base        >= 4.0 && < 5.0,
+        doctest     >= 0.10 && < 0.18,
+        Glob        >= 0.8 && < 0.11
+

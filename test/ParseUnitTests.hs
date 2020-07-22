@@ -7,9 +7,9 @@ import Test.Tasty.HUnit (testCase, (@?=))
 
 import Text.Parsec (parse, ParseError(..))
 
-import Foreign.Hasky.HTypes
-import Foreign.Hasky.ParseTypes (parseIfTypeDef, TypeDef(..), parseTypeDefs)
-import Foreign.Hasky.ParseExports (parseExports, parseModname)
+import Foreign.Pythas.HTypes
+import Foreign.Pythas.ParseTypes (parseIfTypeDef, TypeDef(..), parseTypeDefs)
+import Foreign.Pythas.ParseExports (parseExports, parseModname)
 
 tests = testGroup "UnitTests" [
       parseSimple

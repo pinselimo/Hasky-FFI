@@ -1,4 +1,4 @@
-module Foreign.Hasky.HTypes (HType(..), htype, stripIO, isIO) where
+module Foreign.Pythas.HTypes (HType(..), htype, stripIO, isIO) where
 
 import Text.Parsec ((<|>), unexpected, try, skipMany)
 import qualified Text.Parsec.Char as PC (string)

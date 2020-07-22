@@ -1,0 +1,8 @@
+tupleWithListOfTuples a b =  ( ( (peekCWString a) >>=
+     (\ a ->  ( (peekCWString b) >>=
+     (\ b ->  (return (Test.tupleWithListOfTuples a b)))))) >>=
+     (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) ( (mapM (\ a ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (newCWString a) (newCWString b))) a) >>=
+     (\ a ->  (newTuple2 a)))) a) >>=
+     (\ a ->  (newArray a))) ( (return (map (fromIntegral) b)) >>=
+     (\ b ->  (newArray b))))) res) >>=
+     (\ res ->  (newTuple2 res)))))

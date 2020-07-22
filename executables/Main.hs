@@ -1,6 +1,6 @@
 module Main where
 
-import Foreign.Hasky
+import Foreign.Pythas
 
 main :: IO ()
 main = undefined

@@ -1,0 +1,1 @@
+pureOperationFloat a b =  (CFloat (Test.pureOperationFloat (realToFrac a) (realToFrac b)))

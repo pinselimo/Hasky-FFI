@@ -1,8 +1,8 @@
-module Foreign.Hasky.Wrapper where
+module Foreign.Pythas.Wrapper where
 
-import Foreign.Hasky.HTypes (HType(..), isIO, stripIO)
-import Foreign.Hasky.AST (AST(..), return', map', typeOf, add)
-import Foreign.Hasky.Utils (toC, fromC, toFFIType', tuple, varA, varB, varC, varD)
+import Foreign.Pythas.HTypes (HType(..), isIO, stripIO)
+import Foreign.Pythas.AST (AST(..), return', map', typeOf, add)
+import Foreign.Pythas.Utils (toC, fromC, toFFIType', tuple, varA, varB, varC, varD)
 
 wrap :: String -> String -> [HType] -> String
 wrap modname funcname functype = funcname ++ (concat $ map show args) ++ " = " ++ show body

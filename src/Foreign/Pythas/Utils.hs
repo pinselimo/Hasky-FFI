@@ -1,7 +1,7 @@
-module Foreign.Hasky.Utils where
+module Foreign.Pythas.Utils where
 
-import Foreign.Hasky.HTypes (HType(..), stripIO, isIO)
-import Foreign.Hasky.AST (AST(Function, Tuple, Variable))
+import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
+import Foreign.Pythas.AST (AST(Function, Tuple, Variable))
 
 finalizerName = (++"Finalizer")
 

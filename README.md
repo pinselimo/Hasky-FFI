@@ -1,12 +1,22 @@
-# Hasky-FFI
+# Pythas-FFI
 
-A wrapper for creating FFI modules out of Haskell source files. This project is part of the development of the Python library ```Hasky```.
+A wrapper for creating FFI modules out of Haskell source files. This project is part of the development of the Python library ```Pythas```.
 
-## Hasky
+## Pythas
 
-As the part of ```Hasky``` implemented in Haskell grew, it has been moved to its own repo. The relationship in between the both stays strongly connected.
-```Hasky``` relies heavily on the types declared in ```Foreign.Hasky.Array```, ```Foreign.Hasky.String``` and ```Foreign.Hasky.Tuples```.
-If you are looking for the Python equivalents, take a look at [```hasky.types.py```](https://github.com/pinselimo/Hasky/blob/master/hasky/types.py)
+As the part of ```Pythas``` implemented in Haskell grew, it has been moved to its own repo. The relationship in between the both stays strongly connected.
+```Pythas``` relies heavily on the types declared in ```Foreign.Pythas.Array```, ```Foreign.Pythas.String``` and ```Foreign.Pythas.Tuples```.
+If you are looking for the Python equivalents, take a look at [```hasky.types.py```](https://github.com/pinselimo/Pythas/blob/master/hasky/types.py)
+
+## Flavours
+
+There two multiple flavours that Pythas-FFI comes in. You can install it as an executable or as a ```Haskell``` library. That's configurable via ```cabal-install```.
+
+### Executable
+
+The executable can be 
+
+### Library
 
 ## License
 

@@ -1,10 +1,10 @@
-Name: Hasky-FFI
+Name: Pythas-FFI
 Version: 0.0.0.1
 Cabal-Version: >= 1.10
 License: LGPL-3
 License-file: COPYING
 Author: Simon Plakolb
-Homepage: https://github.com/pinselimo/Hasky-FFI
+Homepage: https://github.com/pinselimo/Pythas-FFI
 Synopsis: Haskell FFI wrapper.
 Description: Create FFI wrapped modules from Haskell source files!
 Maintainer: s.plakolb@gmail.com
@@ -23,23 +23,23 @@ Tested-With: GHC ==8.6.5 || ==8.8.3 || ==8.4.4 || ==8.2.2 || ==8.0.2
 
 Source-Repository   head
     type:     git
-    location: https://github.com/pinselimo/Hasky-FFI
+    location: https://github.com/pinselimo/Pythas-FFI
 
 Library
     Default-Language: Haskell2010
     Exposed-Modules:
-        Foreign.Hasky
+        Foreign.Pythas
     Other-Modules:
-        Foreign.Hasky.AST
-        Foreign.Hasky.FFICreate
-        Foreign.Hasky.FFIType
-        Foreign.Hasky.Finalizer
-        Foreign.Hasky.HTypes
-        Foreign.Hasky.ParseExports
-        Foreign.Hasky.ParseTypes
-        Foreign.Hasky.ParseUtils
-        Foreign.Hasky.Utils
-        Foreign.Hasky.Wrapper
+        Foreign.Pythas.AST
+        Foreign.Pythas.FFICreate
+        Foreign.Pythas.FFIType
+        Foreign.Pythas.Finalizer
+        Foreign.Pythas.HTypes
+        Foreign.Pythas.ParseExports
+        Foreign.Pythas.ParseTypes
+        Foreign.Pythas.ParseUtils
+        Foreign.Pythas.Utils
+        Foreign.Pythas.Wrapper
     hs-source-dirs: src
     Build-Depends:  base        >= 4.0 && < 5.0,
                     parsec      >= 3.0 && < 3.2
@@ -47,7 +47,7 @@ Library
 Executable          hasky-ffi
     Default-Language: Haskell2010
     Main-is:        Main.hs
-    Build-Depends:  base, Hasky-FFI
+    Build-Depends:  base, Pythas-FFI
     hs-source-dirs: executables
 
 Test-Suite unit-tests

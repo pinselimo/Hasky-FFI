@@ -1,10 +1,10 @@
-module Foreign.Hasky.ParseTypes (parseTypeDefs, parseIfTypeDef, parseTypeDef, TypeDef(..)) where
+module Foreign.Pythas.ParseTypes (parseTypeDefs, parseIfTypeDef, parseTypeDef, TypeDef(..)) where
 
 import Text.Parsec
 import Text.Parsec.String (Parser)
 
-import Foreign.Hasky.HTypes (HType(..), htype)
-import Foreign.Hasky.ParseUtils
+import Foreign.Pythas.HTypes (HType(..), htype)
+import Foreign.Pythas.ParseUtils
 
 data TypeDef = TypeDef {
     funcN :: String,

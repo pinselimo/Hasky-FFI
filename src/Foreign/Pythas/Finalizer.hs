@@ -1,10 +1,10 @@
-module Foreign.Hasky.Finalizer where
+module Foreign.Pythas.Finalizer where
 
 import Control.Monad (liftM2, liftM)
 
-import Foreign.Hasky.HTypes (HType(..), stripIO)
-import Foreign.Hasky.AST (AST(..), map')
-import Foreign.Hasky.Utils (free', fromC, finalizerName, tuple, varA, varB, varC)
+import Foreign.Pythas.HTypes (HType(..), stripIO)
+import Foreign.Pythas.AST (AST(..), map')
+import Foreign.Pythas.Utils (free', fromC, finalizerName, tuple, varA, varB, varC)
 
 maybeFinalizerFunc :: String -> HType -> Maybe String
 maybeFinalizerFunc n ht = f $ stripIO ht

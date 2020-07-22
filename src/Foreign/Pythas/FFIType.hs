@@ -1,7 +1,7 @@
-module Foreign.Hasky.FFIType where
+module Foreign.Pythas.FFIType where
 
-import Foreign.Hasky.HTypes (HType(..), stripIO, isIO)
-import Foreign.Hasky.Utils (finalizerName, toFFIType', toFFIType, fromFFIType)
+import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
+import Foreign.Pythas.Utils (finalizerName, toFFIType', toFFIType, fromFFIType)
 
 typeDef = " :: "
 fec = ("foreign export ccall "++)

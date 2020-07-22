@@ -1,9 +1,9 @@
-module Foreign.Hasky.FFICreate (createFFI) where
+module Foreign.Pythas.FFICreate (createFFI) where
 
-import Foreign.Hasky.ParseTypes (TypeDef(funcN, funcT))
-import Foreign.Hasky.FFIType (createFFIType, makeFFIType, finalizerExport)
-import Foreign.Hasky.Wrapper (wrap)
-import Foreign.Hasky.Finalizer (maybeFinalizerFunc)
+import Foreign.Pythas.ParseTypes (TypeDef(funcN, funcT))
+import Foreign.Pythas.FFIType (createFFIType, makeFFIType, finalizerExport)
+import Foreign.Pythas.Wrapper (wrap)
+import Foreign.Pythas.Finalizer (maybeFinalizerFunc)
 
 imports = map ("import "++)
           ["Foreign.C.Types"
@@ -12,10 +12,10 @@ imports = map ("import "++)
           ,"Foreign.Storable (peek)"
           ,"Control.Monad (liftM2, liftM3, liftM4)"
           ,"Foreign.C.Structs"
-          ,"Foreign.Hasky.Array"
-          ,"Foreign.Hasky.List"
-          ,"Foreign.Hasky.String"
-          ,"Foreign.Hasky.Tuples"
+          ,"Foreign.Pythas.Array"
+          ,"Foreign.Pythas.List"
+          ,"Foreign.Pythas.String"
+          ,"Foreign.Pythas.Tuples"
           ]
 
 createFFI :: FilePath -> String -> [String] -> [TypeDef] -> (FilePath, String)

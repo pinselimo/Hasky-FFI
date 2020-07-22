@@ -1,0 +1,1 @@
+pureOperationMixed a b =  (CDouble (Test.pureOperationMixed (fromIntegral a) (realToFrac b)))

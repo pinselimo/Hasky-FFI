@@ -1,6 +1,6 @@
-module Foreign.Hasky.AST where
+module Foreign.Pythas.AST where
 
-import Foreign.Hasky.HTypes (HType(..), stripIO, isIO)
+import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
 
 data AST = Function String [AST] HType
           | Variable String HType

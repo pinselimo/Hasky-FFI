@@ -32,7 +32,7 @@ ffiType ht = case ht of
     HCBool  -> "CBool"
     HChar   -> "Char"
     HCChar  -> "CChar"
-    HWChar  -> "HWchar"
+    HWChar  -> "HWChar"
     HSChar  -> "CSChar"
     HUChar  -> "CUChar"
     HShort  -> "CShort"

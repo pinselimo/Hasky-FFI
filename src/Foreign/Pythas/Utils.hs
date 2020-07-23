@@ -41,6 +41,7 @@ fromFFIType ht = case ht of
 
 fromC :: HType -> AST -> AST
 fromC ht arg = case ht of
+    HTuple [a,b,c,d] -> f "peekTuple4"
     HTuple [a,b,c] -> f "peekTuple3"
     HTuple [a,b] -> f "peekTuple2"
     HTuple _ -> undefined

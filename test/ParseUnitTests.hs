@@ -8,8 +8,8 @@ import Test.Tasty.HUnit (testCase, (@?=))
 import Text.Parsec (parse, ParseError(..))
 
 import Foreign.Pythas.HTypes
-import Foreign.Pythas.ParseTypes (parseIfTypeDef, TypeDef(..), parseTypeDefs)
-import Foreign.Pythas.ParseExports (parseExports, parseModname)
+import Foreign.Pythas.Parser (parseIfTypeDef, parseTypeDefs, parseExports, parseModname)
+import Foreign.Pythas.Utils (TypeDef(..))
 
 tests = testGroup "UnitTests" [
       parseSimple

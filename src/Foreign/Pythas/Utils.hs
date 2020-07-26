@@ -3,6 +3,11 @@ module Foreign.Pythas.Utils where
 import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
 import Foreign.Pythas.AST (AST(Function, Tuple, Variable))
 
+data TypeDef = TypeDef {
+    funcN :: String,
+    funcT :: [HType]
+    } deriving (Show, Eq)
+
 finalizerName = (++"Finalizer")
 
 -- FFI Export Type Construction

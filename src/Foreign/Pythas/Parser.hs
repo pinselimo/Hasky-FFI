@@ -1,15 +1,25 @@
-module Foreign.Pythas.ParseTypes (parseTypeDefs, parseIfTypeDef, parseTypeDef, TypeDef(..)) where
+module Foreign.Pythas.Parser (
+      parseTypeDefs, parseIfTypeDef, parseTypeDef
+    , parseExports, parseModname
+) where
 
-import Text.Parsec
+import qualified Text.Parsec.Token as P
+import Data.Functor (($>))
+import Text.Parsec.Language (haskellDef)
 import Text.Parsec.String (Parser)
+import Text.Parsec
+import Prelude hiding (mod)
 
 import Foreign.Pythas.HTypes (HType(..), htype)
-import Foreign.Pythas.ParseUtils
+import Foreign.Pythas.Utils (TypeDef(..))
 
-data TypeDef = TypeDef {
-    funcN :: String,
-    funcT :: [HType]
-    } deriving (Show, Eq)
+parseExports :: Parser [String]
+parseExports = parseModname *> parens (commaSep $ strip funcName) <* whe
+
+parseModname :: Parser String
+parseModname = skip *> mod *> funcName
+skip = whiteSpace
+strip x = skip *> x <* skip
 
 parseTypeDefs :: Parser [TypeDef]
 parseTypeDefs = manyTill parseIfTypeDef eof
@@ -42,4 +52,22 @@ list  = HList  <$> (brackets (strip parseType))
 isFunc = try $ lookAhead $ parens (identifier *> many1 (strip $ arrow *> parseType))
 isTuple = try $ lookAhead $ parens (parseType *> many1 (strip $ comma *> parseType))
 isTypeDef = try $ lookAhead parseTypeDef
+
+-- Lexer:
+lexer = P.makeTokenParser haskellDef
+
+mod = P.reserved lexer "module"
+whe = P.reserved lexer "where"
+commaSep = P.commaSep lexer
+parens = P.parens lexer
+brackets = P.brackets lexer
+barrow = P.reservedOp lexer "=>"
+arrow = P.reservedOp lexer "->"
+iomonad = P.reservedOp lexer "IO"
+typeDef = P.reservedOp lexer "::"
+semi = P.semi lexer $> ';'
+comma = P.comma lexer
+funcName = P.identifier lexer
+identifier = P.identifier lexer
+whiteSpace = P.whiteSpace lexer
 

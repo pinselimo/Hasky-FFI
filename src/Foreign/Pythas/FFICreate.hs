@@ -25,7 +25,7 @@ createFFI fn modname exports typeDefs =
  let ffiFilename = dropExtension fn ++ "_hasky_ffi.hs"
      ffiModname = modname ++ "_hasky_ffi"
      exportedFuncTypes = filter ((`elem` exports) . funcN) typeDefs
-     ffiFunctions = concat $ map (makeFFIExport modname) exportedFuncTypes
+     ffiFunctions = concatMap (makeFFIExport modname) exportedFuncTypes
      ffiContent = "{-# LANGUAGE ForeignFunctionInterface #-}\n"
              ++ "module " ++ ffiModname
              ++ " where\n\n"

@@ -34,8 +34,8 @@ toFFIType' ht = case ht of
 fromFFIType :: HType -> HType
 fromFFIType ht = case ht of
  HString    -> HIO $ HCWString
- HList x    -> HIO $ HCArray $ fromFFIType x
- HTuple xs  -> HIO $ HCTuple $ map fromFFIType xs
+ HList x    -> HIO $ HCArray $ stripIO $ fromFFIType x
+ HTuple xs  -> HIO $ HCTuple $ map (stripIO . fromFFIType) xs
  HFunc  xs  -> undefined
  HInteger   -> HLLong
  HInt       -> HCInt

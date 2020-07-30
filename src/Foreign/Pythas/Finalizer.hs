@@ -34,7 +34,7 @@ freeTuple as hast = let
     inner = case as of
         [a,b]     -> freeTuple2 (f a varA) (f b varB)
         [a,b,c]   -> freeTuple3 (f a varA) (f b varB) $ f c varC
---        [a,b,c,d] -> freeTuple4 (f a varA) (f b varB) (f c varC) $ f d varD
+        [a,b,c,d] -> freeTuple4 (f a varA) (f b varB) (f c varC) $ f d varD
         _        -> Nothing
         where f t v = finalize t $ v t
     in case inner of

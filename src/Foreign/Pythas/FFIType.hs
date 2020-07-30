@@ -14,9 +14,8 @@ makeFFIType funcname ccompattypes = fec funcname ++ typeDef ++ functype
 
 createFFIType :: [HType] -> [HType]
 createFFIType ts =
-    let fromT = map fromFFIType i
-        toT   = toFFIType (any isIO $ map toFFIType' i) $ last ts
-        i     = init ts
+    let fromT = map fromFFIType $ init ts
+        toT   = toFFIType (any isIO fromT) $ last ts
     in  map stripIO fromT ++ [toT]
 
 finalizerExport :: String -> HType -> String

@@ -33,10 +33,10 @@ toFFIType' ht = case ht of
 
 fromFFIType :: HType -> HType
 fromFFIType ht = case ht of
- HString    -> HCWString
- HList x    -> HCArray $ fromFFIType x
- HTuple [x] -> undefined
- HFunc [x]  -> undefined
+ HString    -> HIO $ HCWString
+ HList x    -> HIO $ HCArray $ fromFFIType x
+ HTuple xs  -> HIO $ HCTuple $ map fromFFIType xs
+ HFunc  xs  -> undefined
  HInteger   -> HLLong
  HInt       -> HCInt
  HBool      -> HCBool

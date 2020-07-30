@@ -30,7 +30,7 @@ wrapAST func ft
 
 wrapArgs :: String -> [HType] -> [AST] -> AST
 wrapArgs fn ts args = foldr ($) (mkFunc fn ts) convfuncs
-    where convfuncs = zipWith convertFromC ts args
+    where convfuncs = zipWith addFromC ts args
 
 mkFunc :: String -> [HType] -> AST
 mkFunc fn ts = let
@@ -41,16 +41,19 @@ mkFunc fn ts = let
     else norm
     where norm = Function fn []  $ last ts
 
-convertFromC :: HType -> AST -> AST -> AST
-convertFromC ht arg f = case ht of
-    HString -> Bind (fromC ht arg)
-                    (Lambda [arg] $ adf arg)
-    HList a -> Bind (fromArray a arg)
-                    (Lambda [arg] $ adf arg)
-    HTuple [a] -> undefined
-    HFunc  [a] -> undefined
-    _          -> adf $ fromC ht arg
-    where adf = add f
+addFromC :: HType -> AST -> AST -> AST
+addFromC ht arg f = let
+    converter = convertFromC ht arg
+                     in if isIO $ typeOf converter
+                        then Bind converter (Lambda [arg] $ adf arg)
+                        else adf converter
+                     where adf = add f
+
+convertFromC :: HType -> AST -> AST
+convertFromC ht arg = case ht of
+    HList a -> fromArray a arg
+    HTuple as -> fromCTuple as arg
+    _         -> fromC ht arg
 
 convertToC :: HType -> AST -> AST
 convertToC ht arg = case ht of
@@ -60,14 +63,12 @@ convertToC ht arg = case ht of
 
 fromArray :: HType -> AST -> AST
 fromArray ht arg = let
-    converter = fromC ht arg
-    inner     = case (ht, converter) of
-        (HList a, _)        -> Just $ map' (fromArray a arg) arg
-        (HString, _)        -> Just $ map' (fromC ht arg) arg
-        (_, Function _ _ t) -> Just $ if isIO t
-                                    then map' converter arg
-                                    else map' (return' converter) arg
-        _                   -FromNothing
+    converter = convertFromC ht arg
+    inner     = case converter of
+        Variable _ _ -> Nothing
+        _            -> Just $ if isIO $ typeOf converter
+                               then map' converter arg
+                               else map' (return' converter) arg
     in case inner of
         Just inner -> Bind (fromC (HList ht) arg) $ Lambda [arg] inner
         Nothing    -> fromC (HList ht) arg
@@ -84,8 +85,8 @@ toArray ht arg = let
         Nothing    -> toA
     where toA = toC (HList ht) arg
 
-fromTuple :: HType -> AST -> AST
-fromTuple hts arg = let
+fromCTuple :: [HType] -> AST -> AST
+fromCTuple hts arg = let
     cf t v = convertFromC t $ v t
     inner  = case zipWith cf hts [varA, varB, varC, varD] of
         a:b:[]     -> Just $ fromCTuple' [a,b] "(,)" "liftM2"
@@ -94,28 +95,17 @@ fromTuple hts arg = let
         _          -> Nothing
     in case inner of
         Just inner -> Bind (fromC (HTuple hts) arg) $ Lambda [tuple hts] inner
-        Nothing    -> fromC (HTUple hts) arg
+        Nothing    -> fromC (HTuple hts) arg
 
-fromTuple' :: [AST] -> String -> String -> AST
-fromTuple' as f l = let
+fromCTuple' :: [AST] -> String -> String -> AST
+fromCTuple' as f l = let
     ts = map (stripIO . typeOf) as
     t  = HTuple ts
-    toTup  args = Function f args t
-    liftM' f as = Function l (f:as) $ HIO t
+    fromTup  args = Function f args t
+    liftM' f as   = Function l (f:as) $ HIO t
     in if ts /= map typeOf as
-     then liftM' (toTup []) $ map return' as
-     else return' $ toTup as
-
-freeTuple3 :: Maybe AST -> Maybe AST -> Maybe AST -> Maybe AST
-freeTuple3 a b c = case (a,b,c) of
-    (Nothing, Nothing, Nothing) -> Nothing
-    (Just fa, Just fb, Just fc) -> Just $ Next fa $ Next fb fc
-    (Just fa, Just fb, Nothing) -> Just $ Next fa fb
-    (Just fa, Nothing, Just fc) -> Just $ Next fa fc
-    (Nothing, Just fb, Just fc) -> Just $ Next fb fc
-    (fa, Nothing, Nothing) -> fa
-    (_ , fb, Nothing)      -> fb
-    (_ , _ , fc)           -> fc
+     then liftM' (fromTup []) $ map return' as
+     else return' $ fromTup as
 
 toCTuple :: [HType] -> AST -> AST
 toCTuple hts arg = let

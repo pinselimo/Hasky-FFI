@@ -17,9 +17,9 @@ import Text.Parsec.String (parseFromFile)
 import Text.Parsec.Error (ParseError)
 import Control.Exception (Exception, throw)
 
-import Foreign.Pythas.ParseTypes (parseTypeDefs, TypeDef(funcN))
-import Foreign.Pythas.ParseExports (parseExports, parseModname)
+import Foreign.Pythas.Parser (parseTypeDefs, parseExports, parseModname)
 import Foreign.Pythas.FFICreate (createFFI)
+import Foreign.Pythas.Utils (TypeDef(funcN))
 
 newtype PythasException = ParseException ParseError
                          deriving (Show)
@@ -32,20 +32,14 @@ instance Exception PythasException
     It is not necessary to use @Foreign.C.Types@. Conversion to these types will be done automatically. It is however necessary to provide type definitions for all functions that should be in the exports. Type synonyms and custom types are not (yet) supported.
  -}
 createFileBindings :: FilePath -> IO FilePath
-createFileBindings fp = do
-    modn <- parseFromFile parseModname fp
-    modname <- case modn of
-                Left e -> throw $ ParseException e
-                Right modname -> return modname
-    tpds <- parseFromFile parseTypeDefs fp
-    typeDefs <- case tpds of
-                Left e -> throw $ ParseException e
-                Right ts -> return ts
-    expts <- parseFromFile parseExports fp
-    let exports = case expts of
-                     Left e  -> map funcN typeDefs
-                     Right e -> e
-    let (fp', fc) = createFFI fp modname exports typeDefs
+createFileBindings fp = let
+    check = either (throw . ParseException) return
+    in do
+    modname  <- check =<< parseFromFile parseModname  fp
+    typeDefs <- check =<< parseFromFile parseTypeDefs fp
+    expts    <- parseFromFile parseExports fp
+    let exports   = either (\_ -> map funcN typeDefs) id expts
+        (fp', fc) = createFFI fp modname exports typeDefs
     writeFile fp' fc
     return fp'
 

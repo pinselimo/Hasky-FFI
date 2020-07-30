@@ -9,8 +9,9 @@ import System.FilePath.Glob (glob)
 import System.FilePath.Posix (takeBaseName, takeFileName, joinPath)
 import Text.Parsec (parse)
 
-import Foreign.Pythas.ParseTypes (parseTypeDef, TypeDef(funcN, funcT))
+import Foreign.Pythas.Parser (parseTypeDef)
 import Foreign.Pythas.Wrapper (wrap)
+import Foreign.Pythas.Utils (TypeDef(funcN, funcT))
 
 tests = do
     gold <- findSingular

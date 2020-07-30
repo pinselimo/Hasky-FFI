@@ -1,6 +1,8 @@
 module Foreign.Pythas.FFICreate (createFFI) where
 
-import Foreign.Pythas.ParseTypes (TypeDef(funcN, funcT))
+import System.FilePath.Posix (dropExtension)
+
+import Foreign.Pythas.Utils (TypeDef(..))
 import Foreign.Pythas.FFIType (createFFIType, makeFFIType, finalizerExport)
 import Foreign.Pythas.Wrapper (wrap)
 import Foreign.Pythas.Finalizer (maybeFinalizerFunc)
@@ -20,10 +22,10 @@ imports = map ("import "++)
 
 createFFI :: FilePath -> String -> [String] -> [TypeDef] -> (FilePath, String)
 createFFI fn modname exports typeDefs =
- let ffiFilename = takeWhile (/='.') fn ++ "_hasky_ffi.hs"
+ let ffiFilename = dropExtension fn ++ "_hasky_ffi.hs"
      ffiModname = modname ++ "_hasky_ffi"
      exportedFuncTypes = filter ((`elem` exports) . funcN) typeDefs
-     ffiFunctions = concat $ map (makeFFIExport modname) exportedFuncTypes
+     ffiFunctions = concatMap (makeFFIExport modname) exportedFuncTypes
      ffiContent = "{-# LANGUAGE ForeignFunctionInterface #-}\n"
              ++ "module " ++ ffiModname
              ++ " where\n\n"
@@ -33,12 +35,12 @@ createFFI fn modname exports typeDefs =
  in (ffiFilename, ffiContent)
 
 makeFFIExport :: String -> TypeDef -> [String]
-makeFFIExport modname typedef = let
-     functype = createFFIType $ funcT typedef
-     ffitypedef = makeFFIType (funcN typedef) functype
-     ffifunc    = wrap modname (funcN typedef) (funcT typedef)
-     maybeFinal = maybeFinalizerFunc (funcN typedef) (last $ funcT typedef)
-     finalizerT = finalizerExport (funcN typedef) (last functype)
+makeFFIExport modname (TypeDef n t) = let
+     functype   = createFFIType t
+     ffitypedef = makeFFIType n functype
+     ffifunc    = wrap modname n t
+     maybeFinal = maybeFinalizerFunc n $ last t
+     finalizerT = finalizerExport n (last functype)
   in case maybeFinal of
      Just finalizer -> ["",ffitypedef, ffifunc, "", finalizerT, finalizer]
      Nothing        -> ["",ffitypedef, ffifunc]

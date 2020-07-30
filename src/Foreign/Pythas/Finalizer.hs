@@ -1,15 +1,12 @@
 module Foreign.Pythas.Finalizer where
 
-import Control.Monad (liftM2, liftM)
-
 import Foreign.Pythas.HTypes (HType(..), stripIO)
 import Foreign.Pythas.AST (AST(..), map')
-import Foreign.Pythas.Utils (free', fromC, finalizerName, tuple, varA, varB, varC)
+import Foreign.Pythas.Utils (free', fromC, finalizerName, tuple, varA, varB, varC, varD)
 
 maybeFinalizerFunc :: String -> HType -> Maybe String
-maybeFinalizerFunc n ht = f $ stripIO ht
-    where mkFinalizer h = (finalizerName n) ++ ' ':varX:" = " ++ show h
-          f = liftM mkFinalizer . maybeFinalizerFunc'
+maybeFinalizerFunc n ht = mkFinalizer <$> maybeFinalizerFunc' (stripIO ht)
+    where mkFinalizer h = finalizerName n ++ ' ':varX:" = " ++ show h
 
 maybeFinalizerFunc' :: HType -> Maybe AST
 maybeFinalizerFunc' ht = finalize ht (Variable [varX]  ht)
@@ -24,25 +21,26 @@ finalize ht hast = case ht of
 
 freeArray :: HType -> AST -> Maybe AST
 freeArray ht hast = let
-    inner  = liftM2 map' (finalize ht hast) $ Just hast
+    inner  = map' <$> finalize ht hast <*> Just hast
     in case inner of
-            Just mp -> liftM2 Next
+            Just mp -> Next <$>
                        (Just $ Bind (fromC (HList ht) hast) $ Lambda [hast] mp)
-                       free
+                       <*> free
             Nothing -> free
     where free = free' (HList ht) hast
 
 freeTuple :: [HType] -> AST -> Maybe AST
 freeTuple as hast = let
     inner = case as of
-        a:b:[]   -> freeTuple2 (f a varA) (f b varB)
-        a:b:c:[] -> freeTuple3 (f a varA) (f b varB) $ f c varC
+        [a,b]     -> freeTuple2 (f a varA) (f b varB)
+        [a,b,c]   -> freeTuple3 (f a varA) (f b varB) $ f c varC
+--        [a,b,c,d] -> freeTuple4 (f a varA) (f b varB) (f c varC) $ f d varD
         _        -> Nothing
         where f t v = finalize t $ v t
     in case inner of
-        Just inner -> liftM2 Next
+        Just inner -> Next <$>
                       (Just $ Bind (fromC (HTuple as) hast) $ Lambda [tuple as] inner)
-                      free
+                      <*> free
         Nothing    -> free
     where free = free' (HTuple as) hast
 

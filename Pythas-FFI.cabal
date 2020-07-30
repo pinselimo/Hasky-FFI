@@ -35,16 +35,15 @@ Library
         Foreign.Pythas.FFIType
         Foreign.Pythas.Finalizer
         Foreign.Pythas.HTypes
-        Foreign.Pythas.ParseExports
-        Foreign.Pythas.ParseTypes
-        Foreign.Pythas.ParseUtils
+        Foreign.Pythas.Parser
         Foreign.Pythas.Utils
         Foreign.Pythas.Wrapper
     hs-source-dirs: src
     Build-Depends:  base        >= 4.0 && < 5.0,
-                    parsec      >= 3.0 && < 3.2
+                    parsec      >= 3.0 && < 3.2,
+                    filepath    >= 1.4 && < 1.5
 
-Executable          hasky-ffi
+Executable          pythas-ffi
     Default-Language: Haskell2010
     Main-is:        Main.hs
     Build-Depends:  base, Pythas-FFI
@@ -55,8 +54,13 @@ Test-Suite unit-tests
     type: exitcode-stdio-1.0
     main-is: Main.hs
     Other-Modules:
-        ParseUnitTests,
+        ParseUnitTests
         WrapGoldenTests
+        Foreign.Pythas.AST
+        Foreign.Pythas.HTypes
+        Foreign.Pythas.Wrapper
+        Foreign.Pythas.Parser
+        Foreign.Pythas.Utils
     hs-source-dirs: test, src
     build-depends:
         base         >= 4.0 && < 5.0,

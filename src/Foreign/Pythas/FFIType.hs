@@ -53,7 +53,7 @@ ffiType ht = case ht of
     HIO ht'  -> "IO " ++ further ht'
     HCArray ht' -> "CArray " ++ further ht'
     HCList ht'  -> "CList " ++ further ht'
-    HTuple hts -> case length hts of
+    HCTuple hts -> case length hts of
                     2 -> "CTuple2 " ++ furthers hts
                     3 -> "CTuple3 " ++ furthers hts
                     4 -> "CTuple4 " ++ furthers hts

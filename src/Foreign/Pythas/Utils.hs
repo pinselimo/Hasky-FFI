@@ -21,7 +21,7 @@ toFFIType' :: HType -> HType
 toFFIType' ht = case ht of
  HString   -> HIO $ HCWString
  HList x   -> HIO $ HCArray $ toFFIType'' x
- HTuple xs -> HIO $ HTuple $ map toFFIType'' xs
+ HTuple xs -> HIO $ HCTuple $ map toFFIType'' xs
  HFunc xs  -> undefined
  HInteger  -> HLLong
  HInt      -> HCInt

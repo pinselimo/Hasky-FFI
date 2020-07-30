@@ -50,21 +50,3 @@ freeTupleContents asts = let
             []   -> Nothing
             x:xs -> foldr (liftA2 Next) x xs
 
-freeTuple2 :: Maybe AST -> Maybe AST -> Maybe AST
-freeTuple2 a b = case (a,b) of
-    (Nothing, Nothing) -> Nothing
-    (Just fa, Just fb) -> Just $ Next fa fb
-    (fa, Nothing) -> fa
-    (_ , fb)      -> fb
-
-freeTuple3 :: Maybe AST -> Maybe AST -> Maybe AST -> Maybe AST
-freeTuple3 a b c = case (a,b,c) of
-    (Nothing, Nothing, Nothing) -> Nothing
-    (Just fa, Just fb, Just fc) -> Just $ Next fa $ Next fb fc
-    (Just fa, Just fb, Nothing) -> Just $ Next fa fb
-    (Just fa, Nothing, Just fc) -> Just $ Next fa fc
-    (Nothing, Just fb, Just fc) -> Just $ Next fb fc
-    (fa, Nothing, Nothing) -> fa
-    (_ , fb, Nothing)      -> fb
-    (_ , _ , fc)           -> fc
-

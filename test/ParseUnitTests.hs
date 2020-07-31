@@ -56,6 +56,7 @@ nested = [
     , "f :: [[Integer]] -> (Double, String)"
     , "f :: Char -> [(Float, Word32)]"
     , "f :: Bool -> [String] -> ([CInt], [Int8])"
+    , "f :: ([String], Int) -> [Int]"
     ]
 
 nestedRes = map Right [
@@ -63,6 +64,7 @@ nestedRes = map Right [
     , stdTD [HList (HList HInteger), HTuple [HDouble, HString]]
     , stdTD [HChar, HList (HTuple [HFloat, HCUInt])]
     , stdTD [HBool, HList HString, HTuple [HList HCInt, HList HCChar]]
+    , stdTD [HTuple [HList HString, HInt], HList HInt]
     ]
 
 unsupported = [

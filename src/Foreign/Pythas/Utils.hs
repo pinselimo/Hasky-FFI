@@ -21,7 +21,7 @@ toFFIType' :: HType -> HType
 toFFIType' ht = case ht of
  HString   -> HIO $ HCWString
  HList x   -> HIO $ HCArray $ toFFIType'' x
- HTuple xs -> HIO $ HTuple $ map toFFIType'' xs
+ HTuple xs -> HIO $ HCTuple $ map toFFIType'' xs
  HFunc xs  -> undefined
  HInteger  -> HLLong
  HInt      -> HCInt
@@ -33,10 +33,10 @@ toFFIType' ht = case ht of
 
 fromFFIType :: HType -> HType
 fromFFIType ht = case ht of
- HString    -> HCWString
- HList x    -> HCArray $ fromFFIType x
- HTuple [x] -> undefined
- HFunc [x]  -> undefined
+ HString    -> HIO $ HCWString
+ HList x    -> HIO $ HCArray $ stripIO $ fromFFIType x
+ HTuple xs  -> HIO $ HCTuple $ map (stripIO . fromFFIType) xs
+ HFunc  xs  -> undefined
  HInteger   -> HLLong
  HInt       -> HCInt
  HBool      -> HCBool

@@ -1,3 +1,5 @@
-tuple =  ( (return (Test.tuple)) >>=
+tuple a =  ( ( ( (peekTuple2 a) >>=
+     (\ ( a,  b) ->  (liftM2 ((,)) (return a) (peekCWString b)))) >>=
+     (\ a ->  (return (Test.tuple a)))) >>=
      (\ res ->  ( ( (\ ( a,  b) ->  (liftM2 ((,)) (return a) (newCWString b))) res) >>=
      (\ res ->  (newTuple2 res)))))

@@ -1,5 +1,8 @@
 module Foreign.Pythas.Finalizer where
 
+import Control.Applicative(liftA2)
+import Data.Maybe (isJust)
+
 import Foreign.Pythas.HTypes (HType(..), stripIO)
 import Foreign.Pythas.AST (AST(..), map')
 import Foreign.Pythas.Utils (free', fromC, finalizerName, tuple, varA, varB, varC, varD)
@@ -31,12 +34,7 @@ freeArray ht hast = let
 
 freeTuple :: [HType] -> AST -> Maybe AST
 freeTuple as hast = let
-    inner = case as of
-        [a,b]     -> freeTuple2 (f a varA) (f b varB)
-        [a,b,c]   -> freeTuple3 (f a varA) (f b varB) $ f c varC
---        [a,b,c,d] -> freeTuple4 (f a varA) (f b varB) (f c varC) $ f d varD
-        _        -> Nothing
-        where f t v = finalize t $ v t
+    inner = freeTupleContents as
     in case inner of
         Just inner -> Next <$>
                       (Just $ Bind (fromC (HTuple as) hast) $ Lambda [tuple as] inner)
@@ -44,21 +42,11 @@ freeTuple as hast = let
         Nothing    -> free
     where free = free' (HTuple as) hast
 
-freeTuple2 :: Maybe AST -> Maybe AST -> Maybe AST
-freeTuple2 a b = case (a,b) of
-    (Nothing, Nothing) -> Nothing
-    (Just fa, Just fb) -> Just $ Next fa fb
-    (fa, Nothing) -> fa
-    (_ , fb)      -> fb
-
-freeTuple3 :: Maybe AST -> Maybe AST -> Maybe AST -> Maybe AST
-freeTuple3 a b c = case (a,b,c) of
-    (Nothing, Nothing, Nothing) -> Nothing
-    (Just fa, Just fb, Just fc) -> Just $ Next fa $ Next fb fc
-    (Just fa, Just fb, Nothing) -> Just $ Next fa fb
-    (Just fa, Nothing, Just fc) -> Just $ Next fa fc
-    (Nothing, Just fb, Just fc) -> Just $ Next fb fc
-    (fa, Nothing, Nothing) -> fa
-    (_ , fb, Nothing)      -> fb
-    (_ , _ , fc)           -> fc
+freeTupleContents :: [HType] -> Maybe AST
+freeTupleContents asts = let
+        finalizers = filter isJust $ zipWith f asts [varA, varB, varC, varD]
+            where f t v = finalize t $ v t
+        in case finalizers of
+            []   -> Nothing
+            x:xs -> foldr (liftA2 Next) x xs
 

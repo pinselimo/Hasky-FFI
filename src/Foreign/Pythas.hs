@@ -13,6 +13,7 @@ module Foreign.Pythas (
     createFileBindings
 ) where
 
+import System.FilePath.Posix (dropExtension)
 import Text.Parsec.String (parseFromFile)
 import Text.Parsec.Error (ParseError)
 import Control.Exception (Exception, throw)
@@ -34,12 +35,16 @@ instance Exception PythasException
 createFileBindings :: FilePath -> IO FilePath
 createFileBindings fp = let
     check = either (throw . ParseException) return
+    fp'   = dropExtension fp ++ "_pythas_ffi.hs"
     in do
+
     modname  <- check =<< parseFromFile parseModname  fp
     typeDefs <- check =<< parseFromFile parseTypeDefs fp
     expts    <- parseFromFile parseExports fp
+
     let exports   = either (\_ -> map funcN typeDefs) id expts
-        (fp', fc) = createFFI fp modname exports typeDefs
+        fc = createFFI fp modname exports typeDefs
+
     writeFile fp' fc
     return fp'
 

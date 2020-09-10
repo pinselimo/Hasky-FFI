@@ -10,13 +10,15 @@ If you are looking for the Python equivalents, take a look at [```hasky.types.py
 
 ## Flavours
 
-There two multiple flavours that Pythas-FFI comes in. You can install it as an executable or as a ```Haskell``` library. That's configurable via ```cabal-install```.
+There two flavours that Pythas-FFI comes in. You can install it as an executable or as a ```Haskell``` library. That's configurable via ```cabal-install```.
 
 ### Executable
 
-The executable can be 
+**Not yet implemented!** The executable can be used to create Haskell FFI export modules for any fitting Haskell module from the command line.
 
 ### Library
+
+As a library Pythas-FFI supports live FFI file generation. Thus it is useful for libraries connecting Haskell to foreign languages.
 
 ## License
 

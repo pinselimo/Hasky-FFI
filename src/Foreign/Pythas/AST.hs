@@ -1,3 +1,14 @@
+{- |
+Module          : Foreign.Pythas.AST
+Description     : Basic ASt to encode wrapping functions
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Encodes a primitive ASt sufficient to describe any
+    wrapping and unwrapping of data for FFI interfacing.
+ -}
 module Foreign.Pythas.AST where
 
 import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)

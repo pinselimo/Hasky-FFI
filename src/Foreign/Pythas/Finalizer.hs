@@ -1,3 +1,14 @@
+{- |
+Module          : Foreign.Pythas.Finalizer
+Description     : Memmory finalizer factory
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Creates functions to release memory allocated
+    by the Haskell runtime for wrapped nested types.
+ -}
 module Foreign.Pythas.Finalizer where
 
 import Control.Applicative(liftA2)

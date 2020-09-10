@@ -1,3 +1,15 @@
+{- |
+Module          : Foreign.Pythas.FFIType
+Description     : Maps native types to FFI supported ones
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Convert native Haskell types to types supported by the
+    Haskell FFI and Pythas. For the wrapping of the respective
+    functions see 'Foreign.Pythas.Wrapper'.
+ -}
 module Foreign.Pythas.FFIType where
 
 import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)

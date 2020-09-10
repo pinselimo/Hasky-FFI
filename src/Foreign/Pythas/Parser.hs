@@ -1,3 +1,15 @@
+{- |
+Module          : Foreign.Pythas.Parser
+Description     : Parse Haskell type statements.
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Parsing functions to convert the contents of a Haskell
+    module file to a list of the occurring top level type
+    declarations.
+ -}
 module Foreign.Pythas.Parser (
       parseTypeDefs, parseIfTypeDef, parseTypeDef
     , parseExports, parseModname

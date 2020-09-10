@@ -1,29 +1,43 @@
+{-# LANGUAGE GADTs, ExistentialQuantification #-}
+{- |
+Module          : Foreign.Pythas.AST
+Description     : Basic ASt to encode wrapping functions
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Encodes a primitive ASt sufficient to describe any
+    wrapping and unwrapping of data for FFI interfacing.
+ -}
 module Foreign.Pythas.AST where
 
 import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
 
-data AST = Function String [AST] HType
-          | Variable String HType
-          | Bind     AST AST
-          | Bindl    AST AST
-          | Lambda   [AST] AST
-          | Next     AST AST
-          | Tuple    [AST]
+data ParsedAST = forall a. ParsedAST (AST a)
+data AST a where
+    Function :: String -> AST a -> AST b -> AST (a -> b)
+    Variable :: String -> HType a -> AST a
+    Bind     :: AST a -> AST (a -> m b) -> AST (m b)
+    Bindl    :: AST (a -> m b) -> AST a -> AST (m b)
+    Lambda   :: AST a -> AST b -> AST (a -> b)
+    Next     :: AST a -> AST (a -> m b) -> AST (m b)
+    Tuple    :: AST a -> AST b
           deriving (Eq)
 
 instance Show AST where
     show = showAST
 
-showAST :: AST -> String
+showAST :: AST a -> String
 showAST h = case h of
     Variable n _ -> ' ':n
-    Lambda as bd -> ' ':parens ("\\" ++ concatMap showAST as ++ " -> " ++ showAST bd)
-    Bind a b     -> ' ':parens (showAST a ++ " >>=\n    " ++ showAST b)
+    Lambda a b   -> ' ':parens ("\\" ++ showAST a ++ " -> " ++ showAST bd)
+    Bind  a b    -> ' ':parens (showAST a ++ " >>=\n    " ++ showAST b)
     Bindl a b    -> showAST a ++ " =<< " ++ showAST b
-    Next a b     -> showAST a ++ " >>\n    " ++ showAST b
+    Next  a b    -> showAST a ++ " >>\n    " ++ showAST b
     Tuple as     -> ' ':parens (foldr ((\a b -> a ++ ", " ++ b) . showAST)
                        (showAST $ last as) $ init as)
-    Function n as _ -> ' ':parens (n ++ concatMap showAST as)
+    Function n a b -> ' ':parens (n ++ showAST a ++ showAST b)
     where parens s = '(':s++")"
 
 typeOf :: AST -> HType
@@ -41,7 +55,7 @@ typeOf h = let
                    else HTuple inner
     Lambda as b    -> typeOf b
 
-return' :: AST -> AST
+return' :: AST a -> AST (m a)
 return' hast = case typeOf hast of
     HIO _ -> hast
     _     -> case hast of

@@ -1,11 +1,21 @@
+{- |
+Module          : Foreign.Pythas.Utils
+Description     : Utility functions for Pythas FFI wrapping
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Utility functions used for the FFI wrapping of Pythas.
+ -}
 module Foreign.Pythas.Utils where
 
-import Foreign.Pythas.HTypes (HType(..), stripIO, isIO)
+import Foreign.Pythas.HTypes (HType(..), stripIO, isIO, ParsedHType)
 import Foreign.Pythas.AST (AST(Function, Tuple, Variable))
 
 data TypeDef = TypeDef {
     funcN :: String,
-    funcT :: [HType]
+    funcT :: [ParsedHType]
     } deriving (Show, Eq)
 
 finalizerName = (++"Finalizer")

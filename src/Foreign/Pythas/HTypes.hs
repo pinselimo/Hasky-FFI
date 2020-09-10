@@ -1,3 +1,15 @@
+{- |
+Module          : Foreign.Pythas.HTypes
+Description     : Sum type wrapper for supported types
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Provides a sum type and accompanying functions to
+    represent all Haskell types supported by Pythas on
+    a data level.
+ -}
 module Foreign.Pythas.HTypes (HType(..), htype, stripIO, isIO) where
 
 import Text.Parsec ((<|>), unexpected, try, skipMany)

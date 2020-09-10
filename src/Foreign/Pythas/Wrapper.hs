@@ -1,3 +1,14 @@
+{- |
+Module          : Foreign.Pythas.Wrapper
+Description     : Wrap Haskell functions in FFI type conversion
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    This module contains all the functionality to wrap Haskell functions such
+    that their input and output types are converted to interface them via Pythas.
+ -}
 module Foreign.Pythas.Wrapper where
 
 import Foreign.Pythas.HTypes (HType(..), isIO, stripIO)

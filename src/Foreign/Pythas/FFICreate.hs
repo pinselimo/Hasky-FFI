@@ -1,3 +1,16 @@
+{- |
+Module          : Foreign.Pythas.FFICreate
+Description     : Create FFI interface files for Haskell modules
+Copyright       : (c) Simon Plakolb, 2020
+License         : LGPLv3
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+    Exposes the basic API for the Pythas-FFI functionality.
+    Given a Haskell module and some other information can
+    create a fitting separate module file exporting FFI
+    calls to said prior module.
+ -}
 module Foreign.Pythas.FFICreate (createFFI) where
 
 import System.FilePath.Posix (dropExtension)

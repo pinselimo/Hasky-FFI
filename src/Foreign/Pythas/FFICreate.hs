@@ -13,7 +13,6 @@ Stability       : beta
  -}
 module Foreign.Pythas.FFICreate (createFFI) where
 
-import System.FilePath.Posix (dropExtension)
 
 import Foreign.Pythas.Utils (TypeDef(..))
 import Foreign.Pythas.FFIType (createFFIType, makeFFIType, finalizerExport)
@@ -33,19 +32,18 @@ imports = map ("import "++)
           ,"Foreign.Pythas.Tuples"
           ]
 
-createFFI :: FilePath -> String -> [String] -> [TypeDef] -> (FilePath, String)
+createFFI :: FilePath -> String -> [String] -> [TypeDef] -> String
 createFFI fn modname exports typeDefs =
- let ffiFilename = dropExtension fn ++ "_hasky_ffi.hs"
-     ffiModname = modname ++ "_hasky_ffi"
+ let
+     ffiModname = modname ++ "_pythas_ffi"
      exportedFuncTypes = filter ((`elem` exports) . funcN) typeDefs
      ffiFunctions = concatMap (makeFFIExport modname) exportedFuncTypes
-     ffiContent = "{-# LANGUAGE ForeignFunctionInterface #-}\n"
-             ++ "module " ++ ffiModname
-             ++ " where\n\n"
-             ++ "import qualified " ++ modname ++ "\n\n"
-             ++ foldr (\a b -> a ++ "\n" ++ b) "" (imports ++ [""] ++ ffiFunctions)
 
- in (ffiFilename, ffiContent)
+ in "{-# LANGUAGE ForeignFunctionInterface #-}\n"
+ ++ "module " ++ ffiModname
+ ++ " where\n\n"
+ ++ "import qualified " ++ modname ++ "\n\n"
+ ++ foldr (\a b -> a ++ "\n" ++ b) "" (imports ++ [""] ++ ffiFunctions)
 
 makeFFIExport :: String -> TypeDef -> [String]
 makeFFIExport modname (TypeDef n t) = let

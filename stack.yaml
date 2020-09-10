@@ -5,9 +5,9 @@
 # https://docs.haskellstack.org/en/stable/yaml_configuration/
 
 # A warning or info to be displayed to the user on config load.
-user-message: |
-  Warning (added by new or init): Some packages were found to be incompatible with the resolver and have been left commented out in the packages section.
-  You can omit this message by removing it from stack.yaml
+# user-message: |
+#  Warning (added by new or init): Some packages were found to be incompatible with the resolver and have been left commented out in the packages section.
+#  You can omit this message by removing it from stack.yaml
 
 # Resolver to choose a 'specific' stackage snapshot or a compiler version.
 # A snapshot resolver dictates the compiler version and the set of packages
@@ -44,9 +44,6 @@ packages:
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
 #
-extra-deps:
-  - git: https://github.com/pinselimo/cstructs-in-haskell.git
-    commit: ccef6c7c0a44d5bf1ac5430c833dff02878487c8
 #
 # extra-deps: []
 

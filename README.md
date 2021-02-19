@@ -1,4 +1,4 @@
-# Pythas-FFI [![Build](https://img.shields.io/travis/pinselimo/Pythas-FFI.svg)](https://travis-ci.org/pinselimo/Pythas-FFI)
+# Pythas-FFI [![Haskell CI](https://github.com/pinselimo/Pythas-FFI/actions/workflows/haskell.yml/badge.svg)](https://github.com/pinselimo/Pythas-FFI/actions/workflows/haskell.yml)
 
 A wrapper for creating FFI modules out of Haskell source files. This project is part of the development of the Python library ```Pythas```.
 

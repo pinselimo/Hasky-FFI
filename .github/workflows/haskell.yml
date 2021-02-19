@@ -44,13 +44,11 @@ jobs:
   cabal:
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
+        platform: [ubuntu-latest, macos-latest]
         ghc: ['8.8.4', '8.10.3', 'latest']
         exclude:
           - platform: macos-latest
             ghc: '8.10.3'
-          - platform: windows-latest
-            ghc: 'latest'
         include:
           - ghc: '8.8.4'
             cabal: '3.0.0.0'

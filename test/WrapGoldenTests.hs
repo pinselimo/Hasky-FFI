@@ -21,7 +21,7 @@ findSingular :: IO [FilePath]
 findSingular = glob "test/golden/input/*.golden"
 
 outp :: FilePath -> FilePath
-outp fp = joinPath ["test/golden/gold", takeBaseName fp ++ ".golden"]
+outp fp = joinPath ["test/golden/gold", takeFileName fp]
 
 testSingular :: FilePath -> TestTree
 testSingular fp = goldenVsFile

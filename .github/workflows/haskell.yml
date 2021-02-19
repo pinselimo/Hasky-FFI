@@ -7,11 +7,45 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  stack:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        ghc: ['8.8.4', '8.10.3']
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1
+      with:
+        stack-version: 'latest'
+
+    - name: Cache
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-stack
+      with:
+        path: .stack
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/*.cache') }}-${{ hashFiles('**/stack.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: |
+        stack update
+        stack build --only-dependencies --enable-tests --enable-benchmarks
+    - name: Build
+      run: stack build --enable-tests --enable-benchmarks --write-ghc-environment-files=always all
+    - name: Run tests
+      run: stack test all
+
+  cabal:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+        ghc: ['8.8.4', '8.10.3', 'latest']
         exclude:
           - platform: macos-latest
             ghc: '8.10.3'
@@ -20,6 +54,8 @@ jobs:
             cabal: '3.0.0.0'
           - ghc: '8.10.3'
             cabal: '3.2.0.0'
+          - ghc: 'latest'
+            cabal: 'latest'
 
     runs-on: ${{ matrix.platform }}
 

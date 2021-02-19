@@ -4,7 +4,8 @@ import System.FilePath.Glob (glob)
 import System.FilePath.Posix (takeBaseName, joinPath)
 import Text.Parsec (parse)
 
-import Foreign.Pythas.ParseTypes (parseTypeDef, TypeDef(funcN, funcT))
+import Foreign.Pythas.Parser (parseTypeDef)
+import Foreign.Pythas.Utils (TypeDef(funcN, funcT))
 import Foreign.Pythas.Wrapper (wrap)
 
 main = do

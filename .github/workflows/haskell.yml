@@ -35,11 +35,11 @@ jobs:
     - name: Install dependencies
       run: |
         stack update
-        stack build --only-dependencies --enable-tests --enable-benchmarks
+        stack build --only-dependencies
     - name: Build
-      run: stack build --enable-tests --enable-benchmarks --write-ghc-environment-files=always all
+      run: stack build
     - name: Run tests
-      run: stack test all
+      run: stack test
 
   cabal:
     strategy:

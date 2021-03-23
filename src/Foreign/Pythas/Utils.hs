@@ -89,7 +89,7 @@ toC ht arg = case ht of
 
 free' :: HType -> AST -> Maybe AST
 free' ht arg = case ht of
-    HString   -> Just $ f "freeCWString"
+    HString   -> Nothing -- Just $ f "freeCWString"
     HList  _  -> Just $ f "freeArray"
     HTuple _  -> Just $ f "free"
     HCPtr  _  -> Just $ f "free"

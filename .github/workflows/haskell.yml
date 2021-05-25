@@ -10,7 +10,7 @@ jobs:
   stack:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu-latest, macos-latest]
 
     runs-on: ${{ matrix.platform }}
 
@@ -44,7 +44,7 @@ jobs:
   cabal:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu-latest, macos-latest]
         ghc: ['8.8', '8.10', '9.0', 'latest']
         include:
           - ghc: '8.8'

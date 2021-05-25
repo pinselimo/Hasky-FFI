@@ -70,7 +70,7 @@ Test-Suite unit-tests
         QuickCheck   >= 2.7 && < 2.15,
         Glob         >= 0.8 && < 0.11,
         filepath     >= 1.4 && < 1.5,
-        tasty        >= 1.0 && < 1.4,
+        tasty        >= 1.0 && < 1.5,
         tasty-hunit  >= 0.10 && < 0.11,
         tasty-golden >= 2.3.2 && < 2.4.0,
         tasty-quickcheck >= 0.10 && < 0.11
@@ -82,6 +82,6 @@ Test-Suite doctest
     hs-source-dirs: test
     build-depends:
         base        >= 4.0 && < 5.0,
-        doctest     >= 0.10 && < 0.18,
+        doctest     >= 0.10 && < 0.19,
         Glob        >= 0.8 && < 0.11
 
